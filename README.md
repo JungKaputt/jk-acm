@@ -3,6 +3,9 @@
 ![FiveM](https://img.shields.io/badge/FiveM-Tested-blue)
 ![QBCore](https://img.shields.io/badge/QBCore-Ready-orange)
 ![Lua](https://img.shields.io/badge/Language-Lua-green)
+![JavaScript](https://img.shields.io/badge/Language-JavaScript-yellow)
+![CSS](https://img.shields.io/badge/Language-CSS-blue)
+![HTML](https://img.shields.io/badge/Language-HTML-red)
 
 **jk-acm** is a highly advanced, interactive Syndicate and Gang Management system designed for the QBCore framework. It goes beyond simple menus, bringing criminal roleplay to the next level with a modern Laptop UI, cinematic blackmarket airdrops, dynamic turf wars, and placeable organization safes.
 
