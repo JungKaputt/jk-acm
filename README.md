@@ -61,7 +61,7 @@
 
 ## 📝 Usage & Commands
 
-* **Open Laptop:** Use the command `/criminalphone` (or your configured command/keybind) to open the ACM interface.
+* **Open Laptop:** Use the Keybind `F6` (or your configured command/keybind) to open the ACM interface.
 * **Join Org:** Use `/joinorg` to accept an incoming syndicate invite.
 * **Start Turf War:** Stand inside a rival's static turf zone and type `/turf` to initiate an attack (Dynamic turfs are attacked by interacting with the flag prop).
 
