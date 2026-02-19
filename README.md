@@ -23,7 +23,7 @@
 ## 📋 Installation
 
 1.  **Database**: Import the provided `.sql` file to create the `acm_dynamic_turfs` and `acm_members` tables.
-2.  **Item**: Add `territory_flag` to your `shared/items.lua`.
+2.  **Item**: Add `territory_flag`, `acm_safe`, `black_laptop` to your `shared/items.lua`.
 3.  **Config**: Customize radius, capture rates, and models in `config.lua`.
 4.  **Start**: Add `ensure jk-acm` to your `server.cfg`.
 
