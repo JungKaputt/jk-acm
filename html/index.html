@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GenX OS Glass</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="libs/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="css/market.css">
+    <link rel="stylesheet" href="css/turf.css">
+    <link rel="stylesheet" href="css/laundry.css"> 
+    <link rel="stylesheet" href="css/org.css"> 
+    <link rel="stylesheet" href="css/stash.css">
+    <link rel="stylesheet" href="css/syndicates.css">
+</head>
+<body>
+
+    <div id="laptop-frame">
+        
+        <div class="wallpaper-bg"></div>
+
+        <div class="glass-topbar">
+            <div class="top-left">
+                <i class="fas fa-user-secret" style="margin-right: 10px;"></i> 
+                <span style="font-weight: 600; font-size: 12px;">GenX OS</span>
+            </div>
+            <div class="top-right">
+                <div class="status-item"><i class="fas fa-wifi"></i></div>
+                <div class="status-item"><i class="fas fa-battery-full"></i> 100%</div>
+                <div class="status-item" id="topbar-clock">12:00</div>
+            </div>
+        </div>
+
+        <div id="os-notification-container"></div>
+
+        <div id="desktop-content">
+            
+            <div class="center-widget">
+                <div class="widget-greeting">Good Evening</div>
+                <div class="widget-user" id="dash-username">Operator</div>
+                <div class="widget-time" id="widget-clock">12:00</div>
+                <div class="widget-date" id="widget-date">Monday, 14 October</div>
+            </div>
+
+            <div class="glass-dock">
+                <div class="dock-item" onclick="openApp('om')" data-tooltip="Organization">
+                    <div class="dock-icon gradient-blue"><i class="fas fa-network-wired"></i></div>
+                    <div class="dock-dot"></div>
+                </div>
+                
+                <div class="dock-separator"></div>
+
+                <div class="dock-item locked" id="dock-bm" onclick="openApp('blackmarket')" data-tooltip="Black Market">
+                    <div class="dock-icon gradient-purple"><i class="fas fa-shopping-cart"></i></div>
+                </div>
+                
+                <div class="dock-item locked" id="dock-turf" onclick="openApp('turf')" data-tooltip="Territory Intel">
+                    <div class="dock-icon gradient-red"><i class="fas fa-map-marked-alt"></i></div>
+                </div>
+                
+                <div class="dock-item locked" id="dock-laundry" onclick="openApp('laundry')" data-tooltip="Laundromat">
+                    <div class="dock-icon gradient-teal"><i class="fas fa-soap"></i></div>
+                </div>
+
+                <div class="dock-item" id="dock-syndicates" onclick="openApp('syndicates')" data-tooltip="The Syndicates">
+                    <div class="dock-icon gradient-orange"><i class="fas fa-globe-americas"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="win-om" class="glass-window" style="display:none;">
+            <div class="window-header">
+                <div class="win-controls">
+                    <div class="win-btn close" onclick="closeApp('om')"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="win-title"><i class="fas fa-network-wired"></i> Organization Hub</div>
+                <div style="width:50px;"></div>
+            </div>
+            <div class="window-body">
+                <div id="om-create-page" style="display:none;">
+                    <div class="create-card">
+                        <div class="create-icon-wrapper"><i class="fas fa-fingerprint"></i></div>
+                        <h2>Establish Organization</h2>
+                        <p>Initialize a new secure criminal network. Access encrypted markets, territory intel, and laundering services.</p>
+                        <div class="input-group">
+                            <input type="text" id="new-org-name" class="create-input" placeholder="Enter Organization Alias" autocomplete="off">
+                        </div>
+                        <div class="cost-display">
+                            <span>Required Capital:</span>
+                            <b>$50,000</b>
+                        </div>
+                        <button class="btn-create-glow" onclick="createOrg()">
+                            <i class="fas fa-satellite-dish"></i> ESTABLISH NETWORK
+                        </button>
+                    </div>
+                </div>
+
+                <div id="om-main-layout" class="om-layout" style="display:none;">
+                    <div class="om-sidebar">
+                        <div class="om-tab active" onclick="switchOMTab('dash')"><i class="fas fa-chart-pie"></i> Dashboard</div>
+                        <div class="om-tab" onclick="switchOMTab('members')"><i class="fas fa-users"></i> Members</div>
+                        <div class="om-tab" onclick="switchOMTab('requests')"><i class="fas fa-user-clock"></i> Requests</div>
+                        <div class="om-tab" onclick="switchOMTab('treasury')"><i class="fas fa-wallet"></i> Treasury</div>
+                        <div class="om-tab" onclick="switchOMTab('settings')"><i class="fas fa-sliders-h"></i> Settings</div>
+                    </div>
+                    <div class="om-content">
+                        <div id="om-dash" class="om-page active">
+                            <div class="om-banner">
+                                <div class="banner-left">
+                                    <div id="om-logo-container" class="org-logo-display"><i class="fas fa-fingerprint"></i></div>
+                                    <div>
+                                        <h2 id="om-org-name">Loading...</h2>
+                                        <p id="om-org-slogan">...</p>
+                                    </div>
+                                </div>
+                                <span class="badge">Verified Organization</span>
+                            </div>
+                            <div class="om-stats">
+                                <div class="stat-box"><small>Vault Balance</small><h3 id="om-balance">$0</h3></div>
+                                <div class="stat-box"><small>Total Operatives</small><h3 id="om-member-count">0</h3></div>
+                            </div>
+                            <div class="om-info-box">
+                                <h4><i class="fas fa-broadcast-tower"></i> Secure Broadcast</h4>
+                                <div id="om-announce-text" class="rich-text-display">No encrypted messages.</div>
+                            </div>
+                            <div class="om-info-box">
+                                <h4><i class="fas fa-clipboard-list"></i> Protocols & Rules</h4>
+                                <div id="om-rules-text" class="rich-text-display">No protocols established.</div>
+                            </div>
+                        </div>
+
+                        <div id="om-members" class="om-page" style="display:none;">
+                            <div class="om-banner"><h2>Operatives</h2></div>
+                            <div class="invite-section">
+                                <i class="fas fa-user-plus"></i>
+                                <input type="number" id="invite-id" placeholder="Enter Citizen ID...">
+                                <button class="btn-green" onclick="invitePlayer()">SEND INVITE</button>
+                            </div>
+                            <div class="member-list-header"><span>Codename</span><span>Clearance</span><span>Manage</span></div>
+                            <div id="member-list-container"></div>
+                        </div>
+
+                        <div id="om-requests" class="om-page" style="display:none;">
+                            <div class="om-banner"><h2>Recruitment Hub</h2></div>
+                            <div id="requests-list-container" style="display:flex; flex-direction:column; gap:10px;"></div>
+                        </div>
+
+                        <div id="om-treasury" class="om-page" style="display:none;">
+                            <div class="om-banner"><h2>Vault Access</h2></div>
+                            <div class="treasury-hero">
+                                <div class="treasury-label">Total Organization Funds</div>
+                                <div id="om-treasury-bal" class="treasury-amount">$0</div>
+                            </div>
+                            <div class="treasury-actions">
+                                <div class="input-money-wrapper">
+                                    <span class="currency-symbol">$</span>
+                                    <input type="number" id="treasury-amount" class="money-input" placeholder="0.00">
+                                </div>
+                                <div class="action-buttons-grid">
+                                    <div class="btn-trans deposit" onclick="treasuryAction('deposit')"><i class="fas fa-arrow-up"></i> Deposit</div>
+                                    <div class="btn-trans withdraw" onclick="treasuryAction('withdraw')"><i class="fas fa-arrow-down"></i> Withdraw</div>
+                                </div>
+                            </div>
+                            <div class="om-info-box"><div id="treasury-logs" class="logs-container"></div></div>
+                        </div>
+
+                        <div id="om-settings" class="om-page" style="display:none;">
+                            <div class="om-banner"><h2>Configuration</h2></div>
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                                <h4 style="color:var(--accent); margin-bottom:10px;"><i class="fas fa-id-card"></i> Public Profile</h4>
+                                <div style="display:flex; gap:15px;">
+                                    <div style="flex:1;">
+                                        <input type="text" id="edit-org-logo" class="create-input" placeholder="Logo URL..." style="margin-bottom:10px; padding:10px;">
+                                        <input type="text" id="edit-org-slogan" class="create-input" placeholder="Slogan..." style="padding:10px;">
+                                    </div>
+                                    <input type="color" id="edit-org-color" class="create-input" style="padding:0; height:85px; width:80px; cursor:pointer;" value="#6c5ce7">
+                                </div>
+                                <button class="btn-blue full-width" onclick="saveProfileSettings()" style="margin-top:10px;">Update Profile</button>
+                            </div>
+                            <div id="editor-announce" class="quill-editor" style="height:100px; margin-bottom:20px;"></div>
+                            <div id="editor-rules" class="quill-editor" style="height:100px; margin-bottom:20px;"></div>
+                            <button class="btn-blue" onclick="saveInfoSettings()">Save Information</button>
+                            <h3 style="margin-top:20px; color:white;">Clearance Permissions</h3>
+                            <div id="perm-container"></div>
+                            <button class="btn-blue" onclick="savePermSettings()" style="margin-top:15px;">Update Permissions</button>
+                            <div id="danger-zone-container" class="danger-zone"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="win-blackmarket" class="glass-window" style="display:none;">
+            <div class="window-header">
+                <div class="win-controls">
+                    <div class="win-btn close" onclick="closeApp('blackmarket')"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="win-title"><i class="fas fa-shopping-cart"></i> Dark Web Market</div>
+                <div style="width:50px;"></div>
+            </div>
+            <div class="window-body">
+                <div id="market-list" class="market-grid-laptop"></div>
+            </div>
+        </div>
+
+        <div id="win-turf" class="glass-window" style="display:none;">
+            <div class="window-header">
+                <div class="win-controls">
+                    <div class="win-btn close" onclick="closeApp('turf')"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="win-title"><i class="fas fa-map"></i> Territory Intel</div>
+                <div style="width:50px;"></div>
+            </div>
+            <div class="window-body">
+                <div id="turf-list"></div>
+            </div>
+        </div>
+
+        <div id="win-laundry" class="glass-window" style="display:none;">
+            <div class="window-header">
+                <div class="win-controls">
+                    <div class="win-btn close" onclick="closeApp('laundry')"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="win-title"><i class="fas fa-soap"></i> Laundromat Network</div>
+                <div style="width:50px;"></div>
+            </div>
+            <div class="window-body">
+                <div class="laundry-layout">
+                    <div class="laundry-container">
+                        <div class="laundry-header">
+                            <h3><i class="fas fa-money-bill-wave"></i> Cleaning Service</h3>
+                            <p>Current Dirty Bills: <span id="avail-dirty" class="highlight-text">Checking...</span></p>
+                        </div>
+                        <input type="number" id="laundry-amount" placeholder="Enter amount to clean..." class="laundry-input" oninput="calcLaundry()">
+                        <div class="laundry-stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-label">Net Profit (70%)</span>
+                                <b id="res-clean" class="stat-value text-success">$0</b>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Org Tax (10%)</span>
+                                <b id="res-tax" class="stat-value text-accent">$0</b>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Service Fee (20%)</span>
+                                <b id="res-fee" class="stat-value text-danger">$0</b>
+                            </div>
+                        </div>
+                        <button class="btn-laundry-action" onclick="startLaundry()">
+                            <i class="fas fa-truck-fast"></i> DISPATCH COURIER
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="win-syndicates" class="glass-window" style="display:none;">
+            <div class="window-header">
+                <div class="win-controls">
+                    <div class="win-btn close" onclick="closeApp('syndicates')"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="win-title"><i class="fas fa-globe-americas"></i> The Syndicates</div>
+                <div style="width:50px;"></div>
+            </div>
+            <div class="window-body">
+                <div class="syndicate-hero">
+                    <div class="hero-text">
+                        <h1>Underground Network</h1>
+                        <p>Established Organizations & Affiliations</p>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="h-stat"><span>Active Orgs</span><b id="total-orgs-count">0</b></div>
+                    </div>
+                </div>
+                <div id="syndicate-list" class="syndicate-grid"></div>
+            </div>
+        </div>
+
+    </div> <div id="win-stash" class="app-window standalone-stash" style="display:none;">
+        <div class="win-header">
+            <span><i class="fas fa-box-archive"></i> Secure Storage Unit</span>
+            <div class="win-close" onclick="closeStash()"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="win-body">
+            <div class="stash-layout">
+                <div class="stash-panel">
+                    <div class="stash-title"><i class="fas fa-user"></i> My Inventory</div>
+                    <div id="player-inv-list" class="stash-grid droppable-zone" data-type="withdraw"></div>
+                </div>
+                <div class="stash-controls"><i class="fas fa-exchange-alt"></i></div>
+                <div class="stash-panel">
+                    <div class="stash-title"><i class="fas fa-vault"></i> Organization Safe</div>
+                    <div id="safe-inv-list" class="stash-grid droppable-zone" data-type="deposit"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-amount" class="modal-overlay" style="display:none;">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fas fa-exchange-alt"></i></div>
+            <h3 id="modal-title">Confirm Transaction</h3>
+            <p id="modal-desc">Enter quantity:</p>
+            <input type="number" id="modal-input-qty" class="modal-input" placeholder="1" min="1">
+            <div class="modal-buttons">
+                <button class="btn-red" onclick="closeModal()">CANCEL</button>
+                <button class="btn-green" onclick="submitModal()">CONFIRM</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-apply" class="modal-overlay" style="display:none;">
+        <div class="modal-box" style="width: 400px;"> 
+            <div class="modal-icon"><i class="fas fa-file-signature"></i></div>
+            <h3>Request Affiliation</h3>
+            <p id="apply-org-name" style="margin-bottom: 10px; color:var(--accent);">Target: Unknown</p>
+            <textarea id="apply-message" class="modal-textarea" placeholder="Explain why you want to join... (Max 100 chars)" maxlength="100"></textarea>
+            <div class="modal-buttons">
+                <button class="btn-red" onclick="closeApplicationModal()">CANCEL</button>
+                <button class="btn-green" onclick="submitApplication()">SEND REQUEST</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-pin" class="modal-overlay" style="display:none;">
+        <div class="modal-box" style="width: 300px;">
+            <div class="modal-icon"><i class="fas fa-lock"></i></div>
+            <h3 id="pin-ui-title">Security Access</h3>
+            <p id="pin-ui-desc">Enter Passcode</p>
+            <div class="pin-display-container">
+                <input type="password" id="pin-input-display" class="modal-input" placeholder="****" readonly style="letter-spacing: 8px; font-size: 32px;">
+            </div>
+            <div class="pin-pad-grid">
+                <button class="pin-btn" onclick="addPinDigit('1')">1</button>
+                <button class="pin-btn" onclick="addPinDigit('2')">2</button>
+                <button class="pin-btn" onclick="addPinDigit('3')">3</button>
+                <button class="pin-btn" onclick="addPinDigit('4')">4</button>
+                <button class="pin-btn" onclick="addPinDigit('5')">5</button>
+                <button class="pin-btn" onclick="addPinDigit('6')">6</button>
+                <button class="pin-btn" onclick="addPinDigit('7')">7</button>
+                <button class="pin-btn" onclick="addPinDigit('8')">8</button>
+                <button class="pin-btn" onclick="addPinDigit('9')">9</button>
+                <button class="pin-btn btn-red" onclick="clearPin()">C</button>
+                <button class="pin-btn" onclick="addPinDigit('0')">0</button>
+                <button class="pin-btn btn-green" onclick="submitPinUI()"><i class="fas fa-arrow-right"></i></button>
+            </div>
+            <button class="btn-red full-width" style="margin-top: 15px;" onclick="closePinUI()">CANCEL ACCESS</button>
+        </div>
+    </div>
+    
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/jquery-ui.min.js"></script> 
+    <script src="libs/quill.min.js"></script>
+    
+    <script src="script.js"></script>
+    <script src="js/market.js"></script>
+    <script src="js/turf.js"></script>
+    <script src="js/laundry.js"></script>
+    <script src="js/org.js"></script>
+    <script src="js/stash.js"></script>
+    <script src="js/syndicates.js"></script>
+</body>
+</html>

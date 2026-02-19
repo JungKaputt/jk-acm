@@ -1,0 +1,287 @@
+.turf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 300px)); 
+    
+    gap: 15px; 
+    padding: 15px;
+    
+    width: 100%;
+    overflow-y: auto;
+    max-height: 560px;
+    
+    justify-content: center; 
+    
+    align-items: start;      
+    align-content: start;
+}
+
+.turf-card {
+    background: linear-gradient(160deg, rgba(30, 30, 40, 0.9), rgba(15, 15, 20, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    
+    display: flex;
+    flex-direction: column;
+    
+    min-height: 0; 
+    height: auto; 
+    
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.turf-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.turf-card.owned::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+    background: #ff4757; 
+}
+.turf-card.neutral::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+    background: #2ecc71; 
+}
+
+.turf-bg-icon {
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    font-size: 60px; 
+    opacity: 0.03;
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+
+.turf-header {
+    padding: 10px 15px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.turf-title-group h3 {
+    color: white;
+    font-size: 13px; 
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.turf-id {
+    color: #555;
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    display: block;
+}
+
+.turf-pill {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.turf-pill.occupied { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
+.turf-pill.neutral { background: rgba(46, 204, 113, 0.1); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.2); }
+
+.status-dot { width: 4px; height: 4px; border-radius: 50%; animation: pulse 2s infinite; }
+.turf-pill.occupied .status-dot { background: #ff4757; box-shadow: 0 0 5px #ff4757; }
+.turf-pill.neutral .status-dot { background: #2ecc71; box-shadow: 0 0 5px #2ecc71; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+.turf-body {
+    padding: 10px 15px; 
+    display: flex;
+    flex-direction: column;
+    gap: 5px; 
+}
+
+.turf-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.turf-label {
+    font-size: 9px;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.turf-owner-name {
+    color: #ccc;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.turf-owner-name i { color: #6c5ce7; font-size: 10px; }
+
+.security-bar-container { margin-top: 2px; }
+.sec-label { display: flex; justify-content: space-between; font-size: 9px; color: #555; margin-bottom: 2px; }
+.sec-track { width: 100%; height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+.sec-fill { height: 100%; border-radius: 2px; width: 0%; transition: width 1s ease; }
+.turf-card.owned .sec-fill { width: 100%; background: #ff4757; }
+.turf-card.neutral .sec-fill { width: 20%; background: #2ecc71; }
+
+.turf-footer {
+    padding: 8px 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9px;
+    color: #666;
+}
+
+.shield-active { color: #0984e3; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+.shield-inactive { color: #444; }
+
+/* Styling Grid Utama */
+.turf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 300px)); 
+    gap: 15px; 
+    padding: 15px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 560px;
+    justify-content: center; 
+    align-items: start;      
+    align-content: start;
+}
+
+.turf-card {
+    background: linear-gradient(160deg, rgba(30, 30, 40, 0.9), rgba(15, 15, 20, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; 
+    height: auto; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Efek Hover */
+.turf-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Border Kiri Warna Status */
+.turf-card.owned::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+    background: #6c5ce7; 
+}
+.turf-card.neutral::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+    background: #444; 
+}
+
+/* --- LOGO BACKGROUND ORGANISASI (BARU) --- */
+.turf-bg-logo {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 140px;
+    height: 140px;
+    opacity: 0.15; /* Transparan */
+    object-fit: contain;
+    transform: rotate(-15deg);
+    pointer-events: none;
+    filter: grayscale(20%);
+    transition: transform 0.3s ease;
+}
+
+.turf-card:hover .turf-bg-logo {
+    transform: rotate(0deg) scale(1.1); /* Efek saat hover */
+    opacity: 0.25;
+}
+
+/* Ikon Background Fallback (Jika tidak ada logo) */
+.turf-bg-icon {
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    font-size: 60px; 
+    opacity: 0.05;
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+
+/* --- EFEK SEDANG PERANG (BARU) --- */
+.turf-card.war-active {
+    border: 1px solid #ff4757;
+    animation: warPulse 1s infinite alternate;
+}
+
+.turf-card.war-active::before {
+    background: #ff4757;
+    box-shadow: 0 0 15px #ff4757;
+}
+
+@keyframes warPulse {
+    from { box-shadow: 0 0 10px rgba(255, 71, 87, 0.1) inset; }
+    to { box-shadow: 0 0 30px rgba(255, 71, 87, 0.4) inset; }
+}
+
+/* --- Header & Pills --- */
+.turf-header {
+    padding: 12px 15px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    background: rgba(0,0,0,0.2);
+}
+
+.turf-title-group h3 {
+    color: white; font-size: 13px; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.turf-id { color: #666; font-size: 9px; font-family: 'JetBrains Mono', monospace; display: block; }
+
+.turf-pill {
+    padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; text-transform: uppercase; display: flex; align-items: center; gap: 5px;
+}
+.turf-pill.occupied { background: rgba(108, 92, 231, 0.15); color: #6c5ce7; border: 1px solid rgba(108, 92, 231, 0.3); }
+.turf-pill.neutral { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255, 255, 255, 0.1); }
+.turf-pill.danger { background: rgba(255, 71, 87, 0.2); color: #ff4757; border: 1px solid #ff4757; }
+
+.status-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; box-shadow: 0 0 5px currentColor; }
+.blink { animation: blinkText 0.5s infinite alternate; }
+@keyframes blinkText { from { opacity: 1; } to { opacity: 0.5; } }
+
+/* Body Info */
+.turf-body { padding: 12px 15px; display: flex; flex-direction: column; gap: 8px; z-index: 2; }
+.turf-info-row { display: flex; justify-content: space-between; align-items: center; }
+.turf-label { font-size: 9px; color: #666; text-transform: uppercase; font-weight: 600; }
+.turf-owner-name { color: #eee; font-size: 11px; font-weight: 500; }
+
+.security-bar-container { margin-top: 2px; }
+.sec-label { display: flex; justify-content: space-between; font-size: 9px; color: #555; margin-bottom: 2px; }
+.sec-track { width: 100%; height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+.sec-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+
+.turf-footer {
+    padding: 8px 15px; background: rgba(0, 0, 0, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.03);
+    display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: #666;
+}
+.shield-active { color: #0984e3; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+.shield-inactive { color: #444; }

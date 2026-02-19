@@ -1,0 +1,183 @@
+.market-grid-laptop {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 560px; 
+}
+
+.market-card-modern {
+    background: rgba(30, 30, 40, 0.8); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    min-height: 280px; 
+}
+
+/* Cooldown State Style */
+.market-card-modern.cooldown-active {
+    border-color: rgba(255, 71, 87, 0.5); /* Red border */
+    background: rgba(40, 20, 25, 0.9); /* Slight reddish tint */
+}
+
+.market-card-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    border-color: #6c5ce7; 
+    background: rgba(35, 36, 46, 0.95);
+}
+
+.market-card-modern.cooldown-active:hover {
+    border-color: #ff4757;
+    background: rgba(50, 25, 30, 0.95);
+    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.2);
+}
+
+.market-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    border: 1px solid rgba(231, 76, 60, 0.4);
+    z-index: 5;
+}
+
+.market-img-box {
+    width: 100%;
+    height: 140px;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 15px;
+}
+
+.market-img-box img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+    transition: transform 0.3s ease;
+}
+
+.market-card-modern:hover .market-img-box img {
+    transform: scale(1.1) rotate(2deg);
+}
+
+.fallback-icon {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.market-details {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.market-title {
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.market-desc {
+    color: #a4b0be;
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    flex: 1; 
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.market-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.market-price {
+    color: #2ecc71; 
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.btn-market-buy {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.btn-market-buy:hover {
+    background: #5649c0;
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-market-buy:active {
+    transform: translateY(1px);
+}
+
+/* Rush Button Style (Timer) */
+.btn-market-buy.btn-rush {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-market-buy.btn-rush:hover {
+    background: #ff4757;
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+}
+
+/* NEW: Active Confirmation Mode */
+.btn-market-buy.btn-rush.confirm-mode {
+    background: #ff4757;
+    color: white;
+    border-color: #ff4757;
+    font-weight: 900;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
