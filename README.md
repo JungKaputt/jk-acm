@@ -53,7 +53,7 @@
 
 1. Download the repository and place the `jk-acm` folder into your server's `resources` directory.
 2. Import the provided `.sql` file into your database to create the necessary tables (`acm_organizations`, `acm_members`, `acm_applications`, `acm_logs`, `acm_turfs`, `acm_dynamic_turfs`, `acm_stashes`).
-3. Add the required items (e.g., Dynamic Turf Flag, Stash Safe, Dirty Money) to your `qb-core/shared/items.lua`.
+3. Add the required items (`territory_flag`, `acm_safe`, `black_laptop`) to your `qb-core/shared/items.lua`.
 4. Ensure you have built the UI (HTML/JS/CSS) if you are working from the source code.
 5. Add `ensure jk-acm` to your `server.cfg`.
 
